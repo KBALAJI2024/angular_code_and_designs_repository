@@ -1,0 +1,145 @@
+<form class="m-5 row g-3" #form="ngForm">
+    <!-- Content here -->
+    <div class="col-md-4">
+        <label for="exampleFormControlInput1" class="form-label"><span class="text-danger">*</span> Student Name</label>
+        <input type="text" class="form-control" [(ngModel)]="user.name" name="name" minlength="2" #name="ngModel" required
+            id="exampleFormControlInput1" autocomplete="off" placeholder="Student Name">
+        <div *ngIf="name.invalid && name.touched || name.invalid && submit">
+            <small class="text-danger" *ngIf="name.errors?.['required']">Enter the Name</small>
+            <small class="text-danger" *ngIf="name.errors?.['minlength']">min lenght is 2</small>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label for="exampleFormControlInput1" class="form-label"><span class="text-danger">*</span> Age</label>
+        <input type="number" [(ngModel)]="user.age" name="age" #age="ngModel" min="7"  required class="form-control"
+            id="exampleFormControlInput1" autocomplete="off" placeholder="Age" required>
+        <div *ngIf="age.invalid && age.touched || age.invalid && submit">
+            <small class="text-danger" *ngIf="age.errors?.['required']">Enter the age</small>
+            <small class="text-danger" *ngIf="age.errors?.['min']">min age is 7</small>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label for="validationDefault04" class="form-label"><span class="text-danger">*</span> class </label>
+        <select class="form-select" id="validationDefault04" [(ngModel)]="user.class" name="class" #class="ngModel"
+            required>
+            <option selected disabled value="">Select</option>
+            <option *ngFor="let item of classArray">{{item.class}}</option>
+        </select>
+        <div *ngIf="class.invalid && class.touched || class.invalid && submit">
+            <small class="text-danger" *ngIf="class.errors?.['required']">Select the class</small>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label for="validationDefault04" class="form-label"><span class="text-danger">*</span> Section</label>
+        <select class="form-select" id="validationDefault04" [(ngModel)]="user.section" #section="ngModel"
+            name="section" required>
+            <option selected disabled value="">Select</option>
+            <option *ngFor="let item of sectionArray">{{item.sec}}</option>
+        </select>
+        <div *ngIf="section.invalid && section.touched || section.invalid && submit">
+            <small class="text-danger" *ngIf="section.errors?.['required']">Select the section</small>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label for="validationDefault04" class="form-label"><span class="text-danger">*</span> Gender</label>
+        <select class="form-select" id="validationDefault04" required  [(ngModel)]="user.gender" name="gender" #gender="ngModel">
+            <option selected disabled value="">Select</option>
+            <option *ngFor="let item of genderArray">{{item.gen}}</option>
+        </select>
+        <div *ngIf="gender.invalid && gender.touched || gender.invalid && submit">
+            <small class="text-danger" *ngIf="gender.errors?.['required']">Select the section</small>
+
+        </div>
+    </div>
+    <div class="col md-4">
+        <label for="exampleFormControlInput1" class="form-label"><span class="text-danger">*</span> Father Number</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="user.fatherName"
+            minlength="2" #fatherName="ngModel" name="fatherName" autocomplete="off" placeholder="father Name" required>
+        <div *ngIf="fatherName.invalid && fatherName.touched || fatherName.invalid && submit">
+            <small class="text-danger" *ngIf="fatherName.errors?.['required']">Enter the father Name</small>
+            <small class="text-danger" *ngIf="fatherName.errors?.['minlength']">min lenght is 2</small>
+        </div>
+    </div>
+    <div class="col md-4">
+        <label for="exampleFormControlInput1" class="form-label"><span class="text-danger">*</span> Phone Number</label>
+        <input type="number" class="form-control" id="exampleFormControlInput1" [(ngModel)]="user.phoneNumber" required
+            #phoneNo="ngModel" name="phoneNumber" maxlength="11" autocomplete="off" placeholder="Phone Number">
+        <div *ngIf="phoneNo.invalid && phoneNo.touched || phoneNo.invalid && submit">
+            <small class="text-danger" *ngIf="phoneNo.errors?.['required']">Enter the Phone Number</small>
+   
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" [(ngModel)]="user.feesPaid" name="feesPaid"
+                autocomplete="off" id="invalidCheck">
+            <label class="form-check-label" for="invalidCheck">
+                Fees paid
+            </label>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="user.activeStatus" name="activeStatus"
+                autocomplete="off" id="invalidCheck">
+            <label class="form-check-label" for="invalidCheck">
+                Active status
+            </label>
+        </div>
+
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" (click)="addOrUpdate(form)">ADD</button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">class</th>
+                <th scope="col">Section</th>
+                <th scope="col">Father Name</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Fees Paid</th>
+                <th scope="col">Active Status</th>
+                <th scope="col">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableArray;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.class}}</td>
+                <td>{{item.section}}</td>
+                <td>{{item.gender}}</td>
+                <td>{{item.fatherName}}</td>
+                <td>{{item.phoneNumber}}</td>
+                <td>{{item.feesPaid ? "PAID" : "UNPAID"}}</td>
+                <td>{{item.activeStatus ? "ACTIVE" : "INACTIVE"}}</td>
+                <td><button type="button" class="btn btn-warning m-2" (click)="onEdit(item.id)">Edit</button><button type="button"
+                        class="btn btn-danger m-2" (click)="onDelete()">Delete</button></td>
+
+
+            </tr>
+            <tr>
+                <td colspan="50" class="text-center" *ngIf="tableArray.length == 0">NO DATA FOUND</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <div>
+        <button type="button" class="btn btn-primary m-2" (click)="OnClear(form)">Clear</button>
+        <button type="button" class="btn btn-success m-2" (click)="OnSubmit(form)" [disabled]="tableArray.length == 0">Submit</button>
+    </div>
+
+
+</form>
