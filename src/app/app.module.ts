@@ -7,6 +7,8 @@ import { ManagementComponent } from './management/management.component';
 import { FormsModule } from '@angular/forms';
 import { BoxComponent } from './box/box.component';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { PracticeCodeComponent } from './practice-code/practice-code.component';
+import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
     AppComponent,
     ManagementComponent,
     BoxComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    PracticeCodeComponent,
+    EmployeeManagementComponent
   ],
   imports: [
     BrowserModule,

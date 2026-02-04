@@ -1,0 +1,176 @@
+<form class="container border mt-5 w-75 vh-auto" #form="ngForm">
+    <label for="" class="form-label" class="mt-3 pt-3 ps-2 fs-5 fw-bold">Employee Management</label>
+    <div class="row p-3 justify-content-center">
+        <div class="col-3">
+            <label for="" class="form-label">Full Name</label>
+            <input class="form-control" type="text" [(ngModel)]="emp.name" name="name" #nameRef="ngModel" minlength="2"
+                placeholder="Enter the Name" pattern="^[A-Za-z]+$" required>
+
+            <div *ngIf="nameRef.invalid && nameRef.touched || nameRef.invalid ==  submit">
+                <small class="text-danger" *ngIf="nameRef.errors?.['required']">Enter the Name</small>
+                <small class="text-danger" *ngIf="nameRef.errors?.['minlength']">min of 2 charater </small>
+                <small class="text-danger" *ngIf="nameRef.errors?.['pattern']">charater only allow</small>
+            </div>
+        </div>
+
+
+
+        <div class="col-3">
+            <label for="" class="form-label">Email</label>
+            <input class="form-control" type="email" [(ngModel)]="emp.email" name="email" #emailRef="ngModel"
+                placeholder="Enter the Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+            <div *ngIf="emailRef.invalid && emailRef.touched || emailRef.invalid ==  submit">
+                <small class="text-danger" *ngIf="emailRef.errors?.['required']">Enter the Email</small>
+                <small class="text-danger" *ngIf="emailRef.errors?.['pattern']">Enter the valid mail Id</small>
+            </div>
+
+        </div>
+
+
+        <div class="col-3">
+            <label for="" class="form-label">Mobile</label>
+            <input class="form-control" type="text" pattern="^[0-9]{10}$" [(ngModel)]="emp.mobile" name="mobile"
+                #mobileRef="ngModel" maxlength="10" placeholder="Enter the mobile" (input)="allowOnlyNumbers($event)"
+                required>
+            <div *ngIf="mobileRef.invalid && mobileRef.touched || mobileRef.invalid ==  submit">
+                <small class="text-danger" *ngIf="mobileRef.errors?.['required']">Enter the Mobile number</small>
+                <small class="text-danger" *ngIf="mobileRef.errors?.['pattern']">Enter the 10 digits</small>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row p-3 justify-content-center">
+
+
+        <div class="col-3">
+            <label for="" class="form-label">Department</label>
+            <select class="form-select" aria-label="Default select example" #departmentRef="ngModel"
+                [(ngModel)]="emp.department" name="department" required>
+                <option selected value="null">Select</option>
+                <option value="BSC">BSc</option>
+                <option value="B.com">B.com</option>
+                <option value="BBA">BBA</option>
+            </select>
+            <div *ngIf="departmentRef.invalid && departmentRef.touched || departmentRef.invalid && submit">
+                <small class="text-danger" *ngIf="departmentRef.errors?.['required']">select the Department</small>
+            </div>
+        </div>
+
+
+        <div class="col-3">
+            <label for="" class="form-label">Designation</label>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="emp.designation"
+                name="designation" #designationRef="ngModel" required>
+                <option selected value="null">Select</option>
+                <option value="HR">HR</option>
+                <option value="MANAGER">MANAGER</option>
+                <option value="DEVELOPER">DEVELOPER</option>
+            </select>
+            <div *ngIf="designationRef.invalid && designationRef.touched || designationRef.invalid && submit">
+                <small class="text-danger" *ngIf="designationRef.errors?.['required']">select the Designation</small>
+            </div>
+        </div>
+
+
+        <div class="col-3">
+            <label for="" class="form-label">Date of Joining</label>
+            <input class="form-control" type="date" [(ngModel)]="emp.dateOfJoining" name="dateOfJoining"
+                #dateRef="ngModel" placeholder="Enter the Name" [max]="maxDate" required (change)="dateChange()">
+            <div *ngIf="dateRef.invalid && dateRef.touched || dateRef.invalid ==  submit">
+                <small class="text-danger" *ngIf="dateRef.errors?.['required']">Enter Date of Joining</small>
+                <!-- <small class="text-danger" *ngIf="notAllowToDaydate == true">Current date not allow </small> -->
+            </div>
+        </div>
+
+    </div>
+    <div class="row p-3 justify-content-center">
+        <div class="col-3">
+            <label for="" class="form-label">Salary</label>
+            <input class="form-control" type="number" [(ngModel)]="emp.salary" name="salary" #salaryRef="ngModel"
+                minlength="2" placeholder="Enter the salary" (input)="salary($event)" required>
+            <div *ngIf="salaryRef.invalid && salaryRef.touched || salaryRef.invalid ==  submit">
+                <small class="text-danger" *ngIf="salaryRef.errors?.['required']">Enter the salary</small>
+                <small class="text-danger" *ngIf="emp.salary === 0">'0' value does not allow</small>
+            </div>
+        </div>
+
+        
+        <!-- <div class="form-check col-3 mt-4 ms-2">
+            <input class="form-check-input" [checked]="!emp.statusActive" type="checkbox" (click)="status()" value=""
+                name="statusInActive">
+            <label class="form-check-label" for="flexCheckChecked">
+                InActive
+            </label>
+        </div> -->
+
+        <div class="col-3">
+            <label for="" class="form-label">Gender</label>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="emp.gender"
+                #genderRef="ngModel" name="gender" required>
+                <option selected value="null">Select</option>
+                <option value="Male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <div *ngIf="genderRef.invalid && genderRef.touched || genderRef.invalid ==  submit">
+                <small class="text-danger" *ngIf="genderRef.errors?.['required']">Enter the Gender</small>
+            </div>
+        </div>
+        <div class="col-3 mt-4">
+            <div class="form-check mt-2">
+            <input class="form-check-input" [checked]="emp.statusActive" type="checkbox" (click)="status()"
+                [(ngModel)]="emp.statusActive" value="" name="statusActive">
+            <label class="form-check-label" for="flexCheckDefault">
+                Active
+            </label>
+        </div>
+        </div>
+        
+
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary ps-5 pe-5 pt-2 pb-2 mt-5" (click)="onAdd(form)"
+            [disabled]="emp.salary === 0 ">Add</button>
+    </div>
+
+
+
+
+    <table class="table mt-5 pt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Dept</th>
+                <th scope="col">Role</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableArray;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.department}}</td>
+                <td>{{item.designation}}</td>
+                <td>{{item.salary}}</td>
+                <td>{{item.statusActive ? 'Active' : 'InActive'}}</td>
+                <td><button type="button" class="btn btn-warning m-2" (click)="onEdit(item.id)">Edit</button> <button type="button"
+                        class="btn btn-danger m-2" (click)="onDelete(item.id)">Delete</button></td> 
+            </tr>
+             <tr >
+                  <td class="text-center" colspan="10" *ngIf="tableArray.length === 0">NO DATA FOUND</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <div> 
+         <button type="button" class="btn btn-info m-2" (click)="onClear(form)">Clear</button>
+    <button type="button" class="btn btn-success m-2" [disabled]="tableArray.length === 0" (click)="onSubmit()">Submit</button>
+    </div>
+   
+
+</form>
